@@ -28,13 +28,13 @@ const registerUser= asyncHandler(async (req, res) => {
     $or: [{ email }, { username }]
   });
 
-  console.log("Existed User: ",existedUser);
-
   if(existedUser) {
     throw new ApiError(
       400,"User already exists with this email or username")
   }
 
+  console.log("Files: ", req.files);
+  
   const avatarLocalPath = req.files?.avatar[0]?.path;   // Get the local path of the uploaded avatar
   const coverImageLocalPath = req.files?.coverImage[0]?.path; // Get the local path of the uploaded cover image
 
@@ -45,7 +45,7 @@ const registerUser= asyncHandler(async (req, res) => {
 
   const avatar = await uploadonCloudinary(avatarLocalPath) // Upload the avatar to Cloudinary
   const coverImage = await uploadonCloudinary(coverImageLocalPath); // Upload the cover image to Cloudinary
-
+  
   if(!avatar) {
     throw new ApiError(
       500, 
@@ -72,7 +72,6 @@ const registerUser= asyncHandler(async (req, res) => {
       "Error creating user"
     );
   }
- })
 
  return res.status(201).json(
   new ApiResponse(
@@ -81,5 +80,6 @@ const registerUser= asyncHandler(async (req, res) => {
     "User registered successfully"
   )
  )
+});
 
 export {registerUser};
