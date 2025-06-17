@@ -76,9 +76,9 @@ userSchema.methods.generateAccessToken = function() {
             fullName: this.fullName,
         }, 
         
-        process.env.ACCESSTOKENSECRET,
+        process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: process.env.ACCESSTOKENEXPIRY
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 }
@@ -90,9 +90,9 @@ userSchema.methods.generateRefreshToken=function (){
             
         },
 
-        process.env.REFRESHTOKENSECRET,
+        process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: process.env.REFRESHTOKENEXPIRY
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
     )
 }
